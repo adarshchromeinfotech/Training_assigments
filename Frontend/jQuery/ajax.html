@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .outer-div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;   
+        }
+
+        .input-div {
+            display: flex;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #f2f2f2;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e4e4e4;
+        }
+
+        .result {
+            margin-top:5%;
+            height: 20vh;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-div">
+        <div class="image-div"></div>
+        <div class="input-div">
+            <input type="text" placeholder="Search">
+            <div class="btn">
+                <input type="button" id="myButton" name="search" value="Search">
+            </div>
+        </div>
+        <div id="output" class="result"></div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#myButton').click(function() {
+                var obj = new XMLHttpRequest();
+                
+                obj.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // A readyState of 4 means that the operation is complete.
+                        // 200 means request is successful
+                        
+                        $('#output').css('border','2px solid green'); //To add border in div when data about to recieve
+                        document.getElementById("output").innerHTML = this.responseText;
+                        //This function at end will hide the div
+                        at_end_effect();
+                    }
+                };
+
+                obj.open("GET", "name.txt", true);
+                obj.send();
+            }); 
+            function at_end_effect(){ 
+                setTimeout(function() {
+                    document.getElementById("output").innerHTML = " ";
+                    $('#output').css('border','none');
+                }, 6000); 
+                
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Address</title>
+    <style>
+        
+        .center-div{
+            margin: auto;
+        }
+        
+    </style>
+</head>
+<body>
+
+
+<div class="conatainer" style="display: flex;">
+    <div class="left-aligh">
+       <!-- Current Address -->
+        <label for="currentAddress">Current Address:</label><br>
+        <textarea id="currentAddress" rows="4" cols="50"></textarea><br>
+    </div>
+    <div class="center-div">
+        <!-- Checkbox to Copy Address -->
+        <label for="copyCheckbox">Same as permament address:</label>
+        <input type="checkbox" id="copyCheckbox" onchange="copyaddress()"><br>       
+    </div>
+     <div class="right-align">
+        <!-- Permanent Address -->
+        <label for="permanentAddress">Permanent Address:</label><br>
+        <textarea id="permanentAddress" rows="4" cols="50"></textarea>
+    </div>    
+</div>
+
+<script>
+function copyaddress() {
+  // Get the current address value
+  var currentAddress = document.getElementById("currentAddress").value;
+  // Get the checkbox element
+  var copyCheckbox = document.getElementById("copyCheckbox");
+  // Get the permanent address textarea element
+  var permanentAddressTextarea = document.getElementById("permanentAddress");
+
+  // If the checkbox is checked, copy the current address to permanent address
+  if (copyCheckbox.checked) {
+    permanentAddressTextarea.value = currentAddress;
+  } else {
+    permanentAddressTextarea.value = ''; // Clear the permanent address if checkbox is unchecked
+  }
+}
+</script>
+
+</body>
+</html>

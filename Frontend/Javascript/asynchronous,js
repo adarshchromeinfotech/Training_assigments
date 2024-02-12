@@ -1,0 +1,27 @@
+console.log("Start");
+//setTimeout(functionRef, delay, param1, param2, /* …, */ paramN)
+// Schedule a function to run after 3 seconds
+setTimeout(function() {
+  console.log("3 seconds have passed!");
+}, 3000);
+
+console.log("End");
+
+//To call a function repeatedly (e.g., every N milliseconds), consider using setInterval(). 
+console.log("Start");
+
+// Define a function to be executed repeatedly
+function greet() {
+  console.log("Hello, world!");
+}
+
+// Schedule the function to be executed every 2 seconds
+const intervalId = setInterval(greet, 2000);
+
+// After 10 seconds, clear the interval
+setTimeout(function() {
+  clearInterval(intervalId); // Stop the interval
+  console.log("Interval stopped after 10 seconds");
+}, 10000);
+
+console.log("End");
