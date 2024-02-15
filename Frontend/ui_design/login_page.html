@@ -3,57 +3,13 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Chrome Login</title>
-      
+      <title>Chrome Login</title>      
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" type="text/css" href="resources/bootstrap-5.0.2/css/bootstrap.min.css">
-      
-      <style>
-         /*         
-         .left-division{
-         width: 60%;
-         }
-         .right-division{
-         overflow: hidden;
-         width: 40%;
-         } */
-         .btn{
-         width: 100%;
-         height: 48px;
-         background-color: #2885cd;
-         }
-         .footer-terms-of-use{
-         font-size: 11px;
-         }
-         .right-division {
-         height: 100vh; /* Set the height of the right column to 100% of viewport height */
-         overflow-y: auto; /* Enable vertical scrolling */
-         }
-       
-         .text-x-small {
-         font-size: 11px !important;
-         }
-        .text-x-large {
-            font-size: 18px;
-            font-weight: 500;
-         }
-
-
-         
-        #email-error,#password-error,#captcha-error{
-            color:red;
-            top:40px !important;
-            padding-left:0px;
-            font-size: small;
-            
-            
-         }
-         
-        .forgot-password{
-            text-decoration: none !important;
-            font-size: 14px !important;
-         }
-      </style>
+      <link rel="stylesheet" href="resources/css/font-awesome/all_min.css"/>
+        <!-- jQuery library -->
+      <script src="resources/js/jquery-validation-1.19.5/lib/jquery.js"></script>
+      <link rel="stylesheet" href="resources/css/style.css">
    </head>
    <body>
       <div class="container-fluid">
@@ -78,10 +34,10 @@
                         <div class="form-floating">                                  
                            <input type="text" class="form-control border-danger" placeholder="Email" id="email" autocomplete="off"  maxlength="80" name="email" value="">
                            <label for="email">Email</label>
-                        </div>
-                        
+                        </div>                        
                         <div class="form-floating mt-3 ">
                            <input type="password" class="form-control border-danger" placeholder="Password" id="password"  name="password">
+                           <i class="fa fa-eye" id="togglePassword"></i>
                            <label for="password">Password</label>
                         </div>
                         <div class="mt-5">
@@ -90,10 +46,10 @@
                                  <img id="imgCaptcha" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAoCAYAAAA16j4lAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQ8SURBVHhe7ZotVNxAEMdXIisrKyuRlcjKyspKJBKJQ1beOxBIJBKJRJ5EVp5EVpCQ7j8zw+xukssmlzsudH7v7eNu9ivsf2f2I+cMwzAMwzByuHblBX80PgLXrjqBqJpeq/h7M1256pirG4cOiQZRJaXfm+nKFb+4urFv/OCf8ccsUg8mm37XVKxE4KV7+VFXZqSMefaOIbEgQvGHTZMBUUVgL+ZNU2Tz7p1DnjS9wPDMpSv+ctuPN6464qw3TOA9sAuBvZif0R6Lt8Z3zoowgffA1ALDU5eufECb8OAr9/qNsxr0CQw76vtnW9Hf8jfa5mwjl6lFhhB94gmbykFU2CnUhxu28kES+uLiRhdTCgxBRIicwZeybQL753nSdbyOCM/h5NFUnXAVo42pBIbHiSDwrraNVYqIlApMIVkERIgu7317n5B37V6+Q1TapZcL6W/hqi915R6wJ/D9nfo27+JoUJzntjErthUYQmLQUF/aETH6EBFTgUNPhZDog7MaqJdvfn600R4B4gTh8fwf5oy+rcDwIvKAOoz6jVX+wOigph5c3kveJnEBH8l8+H6tujzQt4EJ+Cht0vPi/6ZowB791idN1uKpr+/ZsI3IGByIrIMXX2j0IfWaXiwbq7yB1ouVYsWmCP+Mt/R89abtnM0NILpMGHqu8nL2Qm8jsIZIGgw2Z6N1GwLzWbq8Y1Mv2lYcRVT8up/eq1m+jr3h8muIzlnzZKzA4WYIIY7Ng9D6scAS9jHQbOoF3kueGgui4Tc/7IaTAuPD5nkyRmCsazS763or/z1rY5Uig9j0YAqpvu1HNo0CzylRxvdxyuZesJ7Ls/lnWbB5nnQJLEeIMPky9fqldep6q7ayYaobbEHaSAWGGLBjPWTTKPSFCtKwUKtrcX4UOUhCgUNRdGDCRP+s1gkHsDtpm/EGR/JTgUMPYtMo0K60M/Sc65+Vd97dm7JZIGKFGyZKEC9OS1d9RR0SgG6R0jLtSdqMvUHsqcBA8hBm2TQYiQTczqDdsHjw0JPBwaHeiKSicPYkSJsyQQTpt01g7KA5b9CPEkK8SD+lj7TvTWBSjal3kIg3Ti1qDtRvu8CyQfJ5eO04chNH7ZNQ+Z5IlyBUj03GWCBCVxjWgcbLh82ehHM4vB5hmU2YJEe69OSvpcH6O/huwBhIuDdgUwOIB0+ncvGxBus+7F2RABcj6eWI9PceUe2/g8KseBTOx9gzUEK+F+5MBYGQsVh8X82TpHmm9TaeAPD+6hiTpaussUNo8FVISvpjAErtZ1ZMhqDMbejJWAZkQxcnOjfPfpM1J0io8oLO1CQabcTKS9iw5nLRBr58+GuTNYlK7dFneeWpie2tLzCMPYDwLBcYbetrCt0xF0+pkJL8ZHn2ot6TV9Oa7v82dvjGgUO789p7Fz7V6zqEDCMAPpu4hmEYhmEYhmEYO8S5f7BRdvZjQ4U6AAAAAElFTkSuQmCC">
                                  <i id="retryCaptcha" class="ki ki-refresh ki-blue ki-xl cursor-pointer"></i>
                            </div>
-                              <div class="form-floating mb-3">
-                                 <input type="text" id="captcha" name="captcha" class="form-control border-danger" placeholder="Captcha" required="">
-                                 <label for="captcha">Captcha</label>
-                              </div>
+                           <div class="form-floating mb-3">
+                              <input type="text" id="captcha" name="captcha" class="form-control border-danger" placeholder="Captcha" required="">
+                              <label for="captcha">Captcha</label>
+                           </div>
                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3 border-0">Login</button>
@@ -107,15 +63,15 @@
                   <div class="card-footer text-center border-0 bg-transparent h-100 gy-5">
                      <div class="row">
                         <div class="col-sm-5">
-                           <img src="https://cdn.kekastatic.net/login/v/M169_2024.02.11.1/images/app-store.svg" alt="App Store" style="max-width: 110px;">
+                           <img src="resources/images/app-store.svg" alt="App Store" style="max-width: 110px;">
                         </div>
                         <div class="col-sm-5">
-                           <img src="https://cdn.kekastatic.net/login/v/M169_2024.02.11.1/images/google-play.svg" alt="Play Store" style="max-width: 120px;">
+                           <img src="resources/images/google-play.svg" alt="Play Store" style="max-width: 120px;">
                         </div>
                      </div>
                      <div class="row mt-4">
                         <div class="col-sm-3">
-                           <img src="https://cdn.kekastatic.net/login/v/M169_2024.02.11.1/images/keka-logo-black.svg" style="max-width: 100px;">                                        
+                           <img src="resources/images/keka-logo-black.svg" style="max-width: 100px;">                                        
                         </div>
                         <div class="col-sm-9 ">
                            <div class="text-secondary">
@@ -132,11 +88,11 @@
             </div>
          </div>
       </div>
-   <!-- jQuery library -->
-    <script src="resources/js/jquery-validation-1.19.5/lib/jquery.js"></script>
+ 
     <!-- jQuery Validation plugin -->
     <script src="resources/js/jquery-validation-1.19.5/dist/jquery.validate.min.js"></script>
     <!-- validation rule   -->
       <script src="resources/js/validation_rule.js"></script>      
+      <script src="resources/js/passoword_visible_icon.js"></script>      
    </body>
 </html>
